@@ -1,0 +1,9 @@
+Nella versione che NON è thread-safe, a volte l'importo finale è corretto ma a volte non lo è, soprattutto
+se si aumenta il numero di correntisti e/o di operazioni.
+
+Un pezzo di codice è THREAD-SAFE se si comporta correttamente anche quando viene utilizzato da più thread,
+indipendentemente dallo scheduling o interleaving. È dunque molto importante che l'accesso a dati condivisi
+(importo) avvenga da parte di un solo thread alla volta.
+
+Nella versione thread-safe utilizziamo il package java.util.concurrent.atomic e vediamo come con tutte le
+run che possiamo fare l'importo finale sarà sempre uguale a quello iniziale.
