@@ -1,4 +1,4 @@
-package Esercitazione6;
+package Esercitazione6.buffer;
 
 import Esercitazione5.Buffer;
 

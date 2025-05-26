@@ -1,70 +1,67 @@
-package Esercitazione6;
+package Esercitazione6.buffer;
 
-import java.util.LinkedList;
+import java.util.PriorityQueue;
 
-public class BufferLCFifo extends BufferLC {
-    private final LinkedList<Thread> codaProduttori = new LinkedList<>();
-    private final LinkedList<Thread> codaConsumatori = new LinkedList<>();
+public class BufferLCID extends BufferLC {
+    private final PriorityQueue<Thread> codaProduttori = new PriorityQueue<>(BufferLCID::compareThreadID);
+    private final PriorityQueue<Thread> codaConsumatori = new PriorityQueue<>(BufferLCID::compareThreadID);
 
-    public BufferLCFifo(int dimensione) {
+    public BufferLCID(int dimensione) {
         super(dimensione);
+    }
+
+    private static int compareThreadID(Thread x, Thread y) {
+        return Long.compare(x.threadId(), y.threadId());
     }
 
     @Override
     public void put(int i) {
         l.lock();
-
         try {
             codaProduttori.add(Thread.currentThread());
-
             while (!possoInserire()) {
                 bufferPieno.await();
             }
-
-            codaProduttori.removeFirst();
+            codaProduttori.remove();
             buffer[in] = i;
             in = (in + 1) % buffer.length;
             numElementi++;
-            bufferVuoto.signalAll();    //Qui è importante fare la signalAll, altrimenti potrei svegliare un Thread non in testa alla coda
+            bufferVuoto.signalAll();
         } catch (InterruptedException _) {
 
         } finally {
             l.unlock();
         }
+    }
+
+    private boolean possoInserire() {
+        return numElementi < buffer.length && codaProduttori.peek() == Thread.currentThread();
     }
 
     @Override
     public int get() {
-        int i;
+        int res;
         l.lock();
-
         try {
             codaConsumatori.add(Thread.currentThread());
-
             while (!possoPrelevare()) {
                 bufferVuoto.await();
             }
-
-            codaConsumatori.removeFirst();
-            i = buffer[out];
+            codaConsumatori.remove();
+            res = buffer[out];
             out = (out + 1) % buffer.length;
             numElementi--;
             bufferPieno.signalAll();
-            return i;
+            return res;
         } catch (InterruptedException _) {
 
         } finally {
             l.unlock();
         }
-
         throw new IllegalStateException();
     }
 
-    private boolean possoInserire() {
-        return numElementi < buffer.length && Thread.currentThread() == codaProduttori.getFirst();
-    }
-
     private boolean possoPrelevare() {
-        return numElementi > 0 && Thread.currentThread() == codaConsumatori.getFirst();
+        return numElementi > 0 && codaConsumatori.peek() == Thread.currentThread();
     }
 }
