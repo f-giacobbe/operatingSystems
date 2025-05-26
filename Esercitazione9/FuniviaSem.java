@@ -47,7 +47,7 @@ public class FuniviaSem extends Funivia {
 
     @Override
     public void turistaScendi(int tipo) throws InterruptedException {
-        turistaPossoScendere[turno].acquire();
+        turistaPossoScendere[tipo].acquire();
         mutex.acquire();
 
         postiOccupati -= 1 + tipo;
