@@ -14,9 +14,10 @@ public class ProntoSoccorsoLC extends ProntoSoccorso {
     private LinkedList<Paziente> codaGialli = new LinkedList<>();
     private LinkedList<Paziente> codaVerdi = new LinkedList<>();
     private LinkedList[] code = {codaRossi, codaGialli, codaVerdi};
-    private boolean pazienteEntrato = false;
+    private boolean pazienteEntrato = false;    //serve sia per addormentare il medico quando non ci sono pazienti che per impedire ad altri pazienti di entrare mentre c'è un altro paziente in visita
     private Paziente pazienteCorrente;
-    private boolean visitaTerminata = false;
+    private boolean visitaTerminata = false;    //la usa il medico per notificare al paziente il termine della visita e che dunque può uscire
+    private boolean bloccaPazientiNuovi = false;        //serve a impedire agli altri pazienti l'entrata nel lasso di tempo tra quando il medico termina la visita e il paziente effettivamente esce
 
     @Override
     public void accediPaziente(int codice) throws InterruptedException {
@@ -32,7 +33,7 @@ public class ProntoSoccorsoLC extends ProntoSoccorso {
                 pazientePuoEntrare.await();
                 turniAttesa++;
 
-                if (codice == 1 && turniAttesa == 5) {      //se ho codice giallo ma sto aspettando da più di 5 turni mi metto in cima alla coda dei codici rossi in modo da essere visitato subito
+                if (codice == 1 && turniAttesa == 5) {      //se ho codice giallo ma sto aspettando da 5 turni mi metto in cima alla coda dei codici rossi in modo da essere visitato subito
                     codice = 0;
                     gialloPrioritario = true;
                     codaGialli.remove((Paziente) Thread.currentThread());
@@ -41,6 +42,7 @@ public class ProntoSoccorsoLC extends ProntoSoccorso {
             }
 
             //posso entrare
+            bloccaPazientiNuovi = true;
             pazienteCorrente = (Paziente) Thread.currentThread();
             pazienteEntrato = true;
             code[codice].remove();
@@ -52,7 +54,7 @@ public class ProntoSoccorsoLC extends ProntoSoccorso {
     }
 
     private boolean possoEntrare(int codice) {
-        if (pazienteEntrato && !visitaTerminata) {
+        if (pazienteEntrato || bloccaPazientiNuovi) {
             return false;
         }
 
@@ -109,6 +111,7 @@ public class ProntoSoccorsoLC extends ProntoSoccorso {
             //il medico ha finito di visitarmi e posso uscire, notificando il prossimo di entrare
             pazienteCorrente = null;
             visitaTerminata = false;
+            bloccaPazientiNuovi = false;
             pazientePuoEntrare.signalAll();
         } finally {
             l.unlock();

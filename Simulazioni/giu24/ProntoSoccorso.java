@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class ProntoSoccorso {
     private static Random random = new Random();
     protected static final int[] TEMPI_ATTESA  = {40, 20, 15, 10};
+    //protected static final int[] TEMPI_ATTESA  = {1, 1, 1, 1};
 
 
     public abstract void iniziaVisita() throws InterruptedException;
@@ -19,7 +20,7 @@ public abstract class ProntoSoccorso {
     public void test(int numPazienti) {
         int pazientiPerCodice = numPazienti / 3;
 
-        //1/3 codice rosso
+        //1/3 codice verde
         for (int i = 0; i < pazientiPerCodice; i++) {
             new Paziente(this, 2).start();
         }
@@ -29,7 +30,7 @@ public abstract class ProntoSoccorso {
             new Paziente(this, 1).start();
         }
 
-        //1/3 codice verde
+        //1/3 codice rosso
         for (int i = 0; i < pazientiPerCodice; i++) {
             new Paziente(this, 0).start();
         }
