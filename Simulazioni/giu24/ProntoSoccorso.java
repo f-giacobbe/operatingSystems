@@ -17,7 +17,7 @@ public abstract class ProntoSoccorso {
 
     public abstract void esciPaziente() throws InterruptedException;
 
-    public void test(int numPazienti, int numMedici) {
+    public void test(int numPazienti) {
         int pazientiPerCodice = numPazienti / 3;
 
         //1/3 codice verde

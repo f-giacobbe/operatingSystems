@@ -135,6 +135,6 @@ public class ProntoSoccorsoLC extends ProntoSoccorso {
 
     public static void main(String[] args) {
         ProntoSoccorsoLC ps = new ProntoSoccorsoLC();
-        ps.test(30, 1);
+        ps.test(30);
     }
 }
