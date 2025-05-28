@@ -17,7 +17,7 @@ public abstract class ProntoSoccorso {
 
     public abstract void esciPaziente() throws InterruptedException;
 
-    public void test(int numPazienti) {
+    public void test(int numPazienti, int numMedici) {
         int pazientiPerCodice = numPazienti / 3;
 
         //1/3 codice verde
@@ -35,9 +35,7 @@ public abstract class ProntoSoccorso {
             new Paziente(this, 0).start();
         }
 
-        Medico m = new Medico(this);
-        m.setDaemon(true);
-        m.start();
+        new Medico(this).start();
     }
 
     protected static void attendiMinuti(int min, int max) throws InterruptedException {

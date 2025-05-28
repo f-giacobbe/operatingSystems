@@ -5,6 +5,7 @@ public class Medico extends Thread {
 
     public Medico(ProntoSoccorso ps) {
         this.ps = ps;
+        this.setDaemon(true);
     }
 
     @Override
