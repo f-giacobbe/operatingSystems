@@ -1,4 +1,4 @@
-package Esercitazioni.Esercitazione9;
+package Esercitazioni.Esercitazione9.funivia;
 
 import java.util.concurrent.TimeUnit;
 

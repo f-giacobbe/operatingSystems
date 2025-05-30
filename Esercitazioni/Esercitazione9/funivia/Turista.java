@@ -1,4 +1,4 @@
-package Esercitazioni.Esercitazione9;
+package Esercitazioni.Esercitazione9.funivia;
 
 public class Turista extends Thread {
     private Funivia funivia;

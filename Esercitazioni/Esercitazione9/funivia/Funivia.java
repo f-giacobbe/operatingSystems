@@ -1,4 +1,4 @@
-package Esercitazioni.Esercitazione9;
+package Esercitazioni.Esercitazione9.funivia;
 
 public abstract class Funivia {
     protected final int TURISTA_A_PIEDI = 0;
