@@ -1,0 +1,19 @@
+Considerando la variante, andrebbe innanzitutto modificato il metodo run del thread Cliente nel seguente modo:
+
+	int scelta = scegli();		//sceglie casualmente il film (un intero tra 0 e 1)
+	cinema.acquistaBiglietto(scelta);	//acquista il biglietto per il film scelto
+	cinema.vediFilm(scelta);	//visiona il film scelto
+
+Dunque andrebbero modificati anche i metodi acquistaBiglietto e vediFilm per prevedere il parametro "scelta".
+
+Nella classe astratta Cinema innanzitutto MAX_POSTO diventa un array bidimensionale dove la posizione 0 indica
+la capienza della prima sala e la posizione 1 la capienza della seconda sala. In maniera analoga è possibile modificare
+DURATA_FILM_MINUTI per farlo diventare un array con le stesse caratteristiche, con la conseguente modifica anche del metodo
+visioneFilm() che diventerebbe visioneFilm(int film).
+
+Per quanto riguarda la classe concreta CinemaSem, siccome la cassa resta unica i semafori "cassa" e "clientiInCodaCassa"
+restano invariati, mentre bigliettiVenduti lo farei diventare un array bidimensionale per indicare quanti biglietti sono
+stati venduti per le rispettive sale. Stesso discorso vale anche per i semafori film e uscita che diventerebbero array
+bidimensionali di semafori.
+	A questo punto non resta che modificare acquistaBiglietto e vediFilm per prevedere la doppia scelta di film e in modo tale
+che venga fatta l'acquire() e la release() sui semafori corrispondenti al film che si vuole guardare.
