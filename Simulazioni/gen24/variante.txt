@@ -1,0 +1,12 @@
+Si decida di apportare le seguenti modifiche alla classe Biblioteca: avere K > 1 banchi prestiti invece di uno solo
+e avere il thread Utente che scelga a quale banco rivolgersi in base a quanto deve aspettare.
+Si dovrebbero gestire le code in modo tale che vi sia una sorta di matrice di code, dove le colonne indichino rispettivamente
+se si tratta di una coda per tesserati (ovvero con priorità) oppure una coda per esterni (senza priorità), mentre ci sono K righe,
+ognuna rappresenta un banco.
+Al momento di accodarsi, dunque, il cliente confronterà le varie code nella seguente maniera: se si tratta di un utente tesserato,
+si accoderà alla coda con meno tesserati (all'utente tesserato non interessa sapere quanti utenti esterni ci sono in coda in
+quanto avrà sempre la priorità su di lui). Al contrario l'utente esterno che vorrà accodarsi sceglierà la coda con il seguente
+criterio: sceglierà la coda la cui somma di utenti in attesa tesserati e non sia minore. C'è da dire però che avendo gli utenti
+tesserati priorità, possono scavallare l'utente esterno anche dopo che si sia inserito in coda, dunque un algoritmo di tipo
+"greedy" come appena considerato non farà sempre la scelta migliore. Tuttavia, l'utente esterno non ha modo di sapere, al momento
+della scelta, se e quanti utenti tesserati arriveranno in futuro.
