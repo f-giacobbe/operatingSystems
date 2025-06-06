@@ -1,0 +1,18 @@
+Per adattare la classe BancoCheckInSem ad avere più di un solo banco per il check-in, ognuno controllato da un thread
+di tipo Addetto, renderei tutti le variabili di istanza utilizzate (sia i semafori che l'intero bagagliDepositati) array
+di lunghezza pari al numero di banchi check-in (che quindi deve essere fissato in partenza). Ovvero nella maniera seguente:
+
+//classe astratta BancoCheckIn
+public BancoCheckIn(int numBanchi) {
+	this.numBanchi = numBanchi;		//modifico il costruttore della classe astratta per prevedere più banchi del check-in
+}
+
+//classe BancoCheckInSem
+private Semaphore[] turnoBanchi = new Semaphore[numBanchi]
+private Semaphore[] possoPesare = new Semaphore[numBanchi]
+//e così via...
+
+Inoltre, assocerei ad ogni addetto un numero di banco del check-in. Dunque oltre ad avere un riferimento all'oggetto
+BancoCheckIn avrà anche un intero che rappresenta il numero di banco in cui egli lavora.
+
+Inoltre, si potrebbe aggiungere un metodo dove il passeggero sceglie di accodarsi al banco del check-in con meno coda.
