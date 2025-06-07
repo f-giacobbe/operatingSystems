@@ -24,7 +24,7 @@ public abstract class Biblioteca {
 
     protected static void registrazione() throws InterruptedException {
         int minutiAttesa = MIN_TEMPO_REGISTRAZIONE + random.nextInt(MAX_TEMPO_REGISTRAZIONE - MIN_TEMPO_REGISTRAZIONE + 1);
-        TimeUnit.SECONDS.sleep(minutiAttesa);
+        TimeUnit.MINUTES.sleep(minutiAttesa);
     }
 
 

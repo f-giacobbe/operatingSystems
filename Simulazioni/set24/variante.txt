@@ -1,0 +1,9 @@
+Per far in modo che il programma funzioni per come suggerito, ovvero che il gestore inizia a preparare le postazioni
+man mano che la comitiva decide (senza dover aspettare che TUTTI abbiano effettuato la loro scelta) è sufficiente
+fare in modo che il metodo preparaPostazioni() sia ciclico e venga effettuato per N volte (una volta a bagnante) e,
+naturalmente, invece di fare l'acquire() sul semaforo postazioniScelte() per N permessi, farà l'acquire sullo stesso
+semaforo ma per un solo permesso per volta.
+	Sarebbe inoltre più opportuno se ci fosse un ulteriore array di postazioni dove viene indicato il numero di
+postazioni ANCORA da preparare, in modo tale si possa tener traccia di quante postazioni sono già state preparate
+e di quante invece sono ancora da preparare, a differenza di come avviene nell'esercizio 4a dove vengono preparate
+tutte allo stesso momento.
