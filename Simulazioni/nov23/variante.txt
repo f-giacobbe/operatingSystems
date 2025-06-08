@@ -1,0 +1,5 @@
+Qualora si decidesse di avere N > 1 sportelli per ogni tipologia di operazione con i clienti che si accodano, scelta un'operazione, alla coda che presenta meno utenti, si dovrebbe innanzitutto modificare codaSportello
+in modo tale che il valore della HashMap sia dato da un'array di LinkedList<Cliente> di dimensione N. Tradotto significherebbe avere una HashMap dove per ogni tipologia di operazione ci sono N code corrispondenti
+a ogni sportello dove si può svolgere quella specifica operazione.
+Naturalmente ciò implicherebbe la modifica di tutti gli altri metodi utilizzati dai thread Cliente e Impiegato in modo tale che si adattino a questa modifica di struttura dati. In particolare si dovrebbe modificare
+il metodo attendiSportello(...) invocato dal thread Cliente in modo che possa scegliere dinamicamente a quale coda accodarsi.
